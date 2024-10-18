@@ -14,10 +14,17 @@ export default defineConfig({
           remotes: {
             federation_provider: 'federation_provider@http://localhost:3000/mf-manifest.json',
           },
-          shared: ['react', 'react-dom'],
+          shared: {
+            react: { singleton: false, requiredVersion: '^18.0.0' },
+            'react-dom': { singleton: false, requiredVersion: '^18.0.0' },
+          },
         }),
       ]);
     },
   },
-  plugins: [pluginReact()],
+  plugins: [
+    pluginReact({
+      splitChunks: { react: false, router: false },
+    }),
+  ],
 });
